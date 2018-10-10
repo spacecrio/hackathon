@@ -1,9 +1,7 @@
-const mongoose = require("mongoose");
-const app = require("./app");
-
 // As early as possible in your application, require and configure dotenv
 require("dotenv").config();
-
+const mongoose = require("mongoose");
+const app = require("./app");
 mongoose.connect(
   process.env.MONOGO_CONNECTION,
   { useNewUrlParser: true }
