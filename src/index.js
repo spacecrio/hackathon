@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 const app = require("./app");
 
-//TODO refactor
+// As early as possible in your application, require and configure dotenv
+require("dotenv").config();
+
 mongoose.connect(
-  "mongodb://mongo:27017",
+  process.env.MONOGO_CONNECTION,
   { useNewUrlParser: true }
 );
-mongoose.set("debug", true);
+
+// If we in dev mode enable mongoose logging
+if (process.env.NODE_ENV === "development") mongoose.set("debug", true);
 
 app.listen(8080);

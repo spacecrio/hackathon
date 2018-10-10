@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Hash password before save
 UserSchema.pre("save", async function(next) {
   const hash = await bcrypt.hash(this.password, SALT_ROUNDS);
   this.password = hash;
@@ -26,8 +27,8 @@ UserSchema.pre("save", async function(next) {
 });
 
 // Returns promise
-UserSchema.methods.isValidPassword = async function(password) {
-  const compare = await bcrypt.compare(password, this.password);
+UserSchema.methods.isValidPassword = async function(posiblePassword) {
+  const compare = await bcrypt.compare(posiblePassword, this.password);
   return compare;
 };
 

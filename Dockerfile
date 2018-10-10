@@ -7,6 +7,6 @@ RUN apk --no-cache --virtual build-dependencies add \
     g++ \
     && npm install --only=production \
     && apk del build-dependencies
-COPY ./src ./src
+COPY . .
 EXPOSE 8080
 CMD [ "node", "src/index.js" ]
