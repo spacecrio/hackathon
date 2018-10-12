@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const app = require("./app");
 
 const mg = mongoose.connect(
-  "dfsadvsavdcas",
+  process.env.MONGO,
   { useNewUrlParser: true },
   function(error) {
     if (error) console.error(error);
