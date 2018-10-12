@@ -27,6 +27,9 @@ app.post("/login", login);
 app.get("/test", function(req, res) {
   return res.status(200).json({ msg: "Works" });
 });
+app.get("/", function(req, res) {
+  return res.status(200).json({ msg: "Works" });
+});
 // app.get("/protected", auth(),);
 // Handle error
 app.use(errorHandler);
