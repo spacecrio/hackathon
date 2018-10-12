@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const SALT_ROUNDS = 10;
 
-const UserSchema = new mongoose.Schema(
+const userModel = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -21,16 +21,16 @@ const UserSchema = new mongoose.Schema(
 );
 
 // Hash password before save
-UserSchema.pre("save", async function(next) {
+userModel.pre("save", async function(next) {
   const hash = await bcrypt.hash(this.password, SALT_ROUNDS);
   this.password = hash;
   next();
 });
 
 // Returns promise
-UserSchema.methods.isValidPassword = async function(posiblePassword) {
+userModel.methods.isValidPassword = async function(posiblePassword) {
   const compare = await bcrypt.compare(posiblePassword, this.password);
   return compare;
 };
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", userModel);
