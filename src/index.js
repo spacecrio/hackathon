@@ -5,7 +5,9 @@ const app = require("./app");
 
 const mg = mongoose.connect(
   process.env.MONGO_CONNECTION,
-  { useNewUrlParser: true },
+  { 
+  	useNewUrlParser: true
+  },
   function(error) {
     if (error) {
       console.error(error);

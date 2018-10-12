@@ -33,7 +33,7 @@ router.get("/test", function(req, res) {
   return res.status(200).json({ msg: "Works" });
 });
 
-router.post("/uploadebug", uploadFile);
+router.post("/uploadebug", uploadFile); //auth,
 
 app.use("/api/v1", router);
 // WIP
