@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const compression = require("compression");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const auth = require("./middleware/auth");
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 // compress all responses
 app.use(compression());
+// Cors
+app.use(cors());
 
 app.post("/register", register);
 app.post("/login", login);
