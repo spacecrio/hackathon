@@ -12,7 +12,9 @@ async function register(req, res) {
     const user = await new userModel({ username, password }).save();
 
     console.log("After user safe");
-    
+
+    console.log(user);
+
     const token = jwt.issue({ username: user.username });
     return res.status(200).json({ token });
   } catch (e) {
