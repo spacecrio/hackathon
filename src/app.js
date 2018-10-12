@@ -4,6 +4,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const auth = require("./middleware/auth");
+const errorHandler = require("./middleware/errorHandler");
 const app = express();
 
 // TODO use router
@@ -23,6 +24,9 @@ app.post("/register", register);
 app.post("/login", login);
 
 // TODO Here just for testing
-app.get("/protected", auth);
+app.get("/test", (req, res) => {
+  return res.status(200).json({ msg: "Works" });
+});
 
+app.use(errorHandler);
 module.exports = app;
