@@ -1,14 +1,16 @@
 const userModel = require("../models/user");
 const jwt = require("../utlis/jwt");
+// TODO DRY
 
 // Must be POST
 async function register(req, res) {
-  const { username, password } = req.body;
   try {
+    const { username, password } = req.body;
     const user = await new userModel({ username, password }).save();
     const token = jwt.issue({ username: user.username });
     return res.status(200).json({ token });
   } catch (e) {
+    console.error(e);
     return res.status(409).json({ error: "username already taken" });
   }
 }
