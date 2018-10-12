@@ -6,7 +6,7 @@ const auth = require("./middleware/auth");
 const app = express();
 
 // TODO use router
-const { register } = require("./controlles/user");
+const { register, login } = require("./controlles/user");
 
 // Use logger
 app.use(morgan("dev"));
@@ -17,6 +17,9 @@ app.use(bodyParser.json());
 app.use(compression());
 
 app.post("/register", register);
+app.post("/login", login);
+
+// TODO Here just for testing
 app.get("/protected", auth);
 
 module.exports = app;
