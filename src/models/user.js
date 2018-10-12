@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt-nodejs");
 
 const SALT_ROUNDS = 10;
 
@@ -22,7 +22,9 @@ const userModel = new mongoose.Schema(
 
 // Hash password before save
 userModel.pre("save", async function(next) {
-  const hash = await bcrypt.hash(this.password, SALT_ROUNDS);
+  const salt = bcrypt.genSaltSync();
+  const hash = await bcrypt.hashSync(this.password, SALT_ROUNDS);
+
   this.password = hash;
   next();
 });
