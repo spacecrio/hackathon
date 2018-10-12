@@ -7,17 +7,17 @@ const photoModel = new mongoose.Schema(
       unique: true,
       required: true
     },
-    location: { 
+    location: {
       latitude: { type: Number },
-      longitude: { type: Number } 
+      longitude: { type: Number }
     },
     sender: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: "User"
     },
     resiver: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: "User"
     }
   },
   { timestamps: true }
