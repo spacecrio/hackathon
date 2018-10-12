@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const auth = require("./middleware/auth");
 const errorHandler = require("./middleware/errorHandler");
+const { uploadFile } = require("./controlles/user");
 const app = express();
 
 // TODO use router
@@ -20,7 +21,6 @@ app.use(compression());
 // Cors
 app.use(cors());
 
-
 app.get("/", function(req, res) {
   return res.status(200).json({ msg: "Use API blyt!" });
 });
@@ -33,7 +33,9 @@ router.get("/test", function(req, res) {
   return res.status(200).json({ msg: "Works" });
 });
 
-app.use('/api/v1', router);
+app.use("/api/v1", router);
+// WIP
+router.post("/upload", auth(), uploadFile);
 
 // app.get("/protected", auth(),);
 // Handle error
