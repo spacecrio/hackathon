@@ -7,8 +7,10 @@ const mg = mongoose.connect(
   process.env.MONGO_CONNECTION,
   { useNewUrlParser: true },
   function(error) {
-    if (error) console.error(error);
-    process.exit(1);
+    if (error){
+    	console.error(error);
+    	process.exit(1);
+    }
   }
 );
 
