@@ -42,5 +42,13 @@
     "gulp-plumber": "^1.2.0",
     "gulp-sass": "^4.0.1",
     "webpack-stream": "^5.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+    "lint-staged": {
+      "*.{js,json}": ["prettier --write", "git add"]
   }
 }
