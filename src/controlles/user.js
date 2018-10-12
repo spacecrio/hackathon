@@ -6,7 +6,7 @@ async function register(req, res) {
   const { username, password } = req.body;
   try {
     const user = await new userModel({ username, password }).save();
-    const token = jwt.issue({ id: user.id });
+    const token = jwt.issue({ username: user.username });
     return res.status(200).json({ token });
   } catch (e) {
     return res.status(409).json({ error: "username already taken" });
@@ -41,7 +41,7 @@ async function login(req, res) {
     // If password valid
     if (validate) {
       // Finally username and password valid
-      const token = jwt.issue({ id: user.id });
+      const token = jwt.issue({ username: user.username });
       return res.status(200).json({ token });
     } else {
       return res.status(401).json({

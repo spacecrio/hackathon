@@ -27,6 +27,7 @@ app.post("/login", login);
 app.get("/test", (req, res) => {
   return res.status(200).json({ msg: "Works" });
 });
-
+// app.get("/protected", auth(),);
+// Handle error
 app.use(errorHandler);
 module.exports = app;
