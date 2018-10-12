@@ -6,7 +6,13 @@ const jwt = require("../utlis/jwt");
 async function register(req, res) {
   try {
     const { username, password } = req.body;
+
+    console.log("Before user safe");
+
     const user = await new userModel({ username, password }).save();
+
+    console.log("After user safe");
+    
     const token = jwt.issue({ username: user.username });
     return res.status(200).json({ token });
   } catch (e) {
