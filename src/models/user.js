@@ -23,7 +23,7 @@ const userModel = new mongoose.Schema(
 // Hash password before save
 userModel.pre("save", async function(next) {
   const salt = bcrypt.genSaltSync();
-  const hash = await bcrypt.hashSync(this.password, SALT_ROUNDS);
+  const hash = await bcrypt.hashSync(this.password, salt);
 
   this.password = hash;
   next();

@@ -35,9 +35,18 @@ router.get("/test", function(req, res) {
 
 app.use("/api/v1", router);
 // WIP
-router.post("/upload", auth(), uploadFile);
+router.post("/uploadebug", auth(), uploadFile);
+
+app.get("/uploadebugfrom", function(req, res) {
+  res
+    .set("application/html")
+    .send(
+      `<!DOCTYPE html><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1"name=viewport><meta content="ie=edge"http-equiv=X-UA-Compatible><title>Document</title><p>Please select a file and submit the form to upload an asset to HELL<form action=/upload enctype=multipart/form-data method=post><label for=file>Upload a file</label><input type=file name=upload> <input type=submit class=button></form>`
+    );
+});
 
 // app.get("/protected", auth(),);
 // Handle error
+
 app.use(errorHandler);
 module.exports = app;
