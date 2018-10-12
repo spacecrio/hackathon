@@ -10,4 +10,4 @@ mongoose.connect(
 // If we in dev mode enable mongoose logging
 if (process.env.NODE_ENV === "development") mongoose.set("debug", true);
 
-app.listen(8080);
+app.listen(process.env.PORT);

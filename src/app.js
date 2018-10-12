@@ -24,7 +24,7 @@ app.post("/register", register);
 app.post("/login", login);
 
 // TODO Here just for testing
-app.get("/test", (req, res) => {
+app.get("/test", function(req, res) {
   return res.status(200).json({ msg: "Works" });
 });
 // app.get("/protected", auth(),);
