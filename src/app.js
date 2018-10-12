@@ -20,16 +20,21 @@ app.use(compression());
 // Cors
 app.use(cors());
 
-app.post("/register", register);
-app.post("/login", login);
 
-// TODO Here just for testing
-app.get("/test", function(req, res) {
-  return res.status(200).json({ msg: "Works" });
-});
 app.get("/", function(req, res) {
+  return res.status(200).json({ msg: "Use API blyt!" });
+});
+
+const router = express.Router();
+router.post("/register", register);
+router.post("/login", login);
+// TODO Here just for testing
+router.get("/test", function(req, res) {
   return res.status(200).json({ msg: "Works" });
 });
+
+app.use('/api/v1', router);
+
 // app.get("/protected", auth(),);
 // Handle error
 app.use(errorHandler);
