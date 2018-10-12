@@ -2,9 +2,14 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const app = require("./app");
-mongoose.connect(
-  process.env.MONOGO_CONNECTION,
-  { useNewUrlParser: true }
+
+const mg = mongoose.connect(
+  "dfsadvsavdcas",
+  { useNewUrlParser: true },
+  function(error) {
+    if (error) console.error(error);
+    process.exit(1);
+  }
 );
 
 // If we in dev mode enable mongoose logging
