@@ -22,7 +22,7 @@ async function login(req, res) {
   const { username, password } = req.body;
   try {
     // User and password not null
-    if (!username && !password) {
+    if (!username || !password) {
       return res.status(401).json({
         error:
           "The entered username and password do not match the ones stored in our database"
