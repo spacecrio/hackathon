@@ -31,7 +31,8 @@ userModel.pre("save", async function(next) {
 
 // Returns promise
 userModel.methods.isValidPassword = async function(posiblePassword) {
-  const compare = await bcrypt.compare(posiblePassword, this.password);
+  console.log("Here");
+  const compare = await bcrypt.compareSync(posiblePassword, this.password);
   return compare;
 };
 

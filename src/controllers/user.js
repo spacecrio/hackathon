@@ -53,9 +53,9 @@ async function login(req, res) {
           "The entered username and password do not match the ones stored in our database"
       });
     }
-  } catch (e) {
+  } catch (ex) {
     // TODO delete consloe
-    console.error(e);
+    console.error(ex);
     return res.status(401).json({
       error:
         "The entered username and password do not match the ones stored in our database"
