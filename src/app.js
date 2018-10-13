@@ -3,10 +3,13 @@ const morgan = require("morgan");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const auth = require("./middleware/auth");
-const errorHandler = require("./middleware/errorHandler");
 const { uploadFile } = require("./controllers/photo");
 const app = express();
+
+// Middleware
+const auth = require("./middleware/auth");
+const errorHandler = require("./middleware/errorHandler");
+const fileUpload = require("./middleware/fileUpload");
 
 // TODO use router
 const { register, login } = require("./controllers/user");
@@ -33,7 +36,9 @@ router.get("/test", function(req, res) {
   return res.status(200).json({ msg: "Works" });
 });
 
-router.post("/uploadebug", uploadFile); //auth,
+router.post("/uploadebug", uploadFile);
+
+router.post("/photo", auth, fileUpload.any(), uploadFile);
 
 app.use("/api/v1", router);
 // WIP

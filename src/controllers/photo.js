@@ -1,50 +1,64 @@
-const aws = require("aws-sdk");
-const multer = require("multer");
-const multerS3 = require("multer-s3");
-
 const uuidv4 = require('uuid/v4');
 
-// https://hackathon13.ams3.digitaloceanspaces.com
+const photoModel = require("../models/photo");
 
-const spacesEndpoint = new aws.Endpoint("ams3.digitaloceanspaces.com");
+const uploadFile = function(req, res, next) {
+  console.log(req.files);
 
-const s3 = new aws.S3({
-  endpoint: spacesEndpoint
-});
+  const userName = req.user.username;
+  const userId = req.user.id;
 
-aws.config.update({
-  secretAccessKey: process.env.AWS_ACCESS_KEY_ID,
-  accessKeyId: process.env.AWS_SECRET_ACCESS_KEY
-});
+  const file = req.files[0];
+  const fullUrl = file.location;
 
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    acl: "public-read",
-    bucket: "hackathon13",
-    key: function(req, file, cb) {
-      const originalName = uuidv4();
-      cb(null, originalName);
+  const photo = savePhoto(userId, fullUrl);
+  console.log(photo);
+
+  const emptyPhoto = findReceiver();
+  if(!!emptyPhoto){
+    photo.receiver = emptyPhoto.sender;
+    try{
+      photo.save();
     }
-  })
-}).array('upload', 1);
-
-const uploadFile = function(request, res, next) {
-
-  upload(request, res, function(error) {
-    if (error) {
-      console.error(error);
-      return res.status(409).json({ error: "Failed to upload file" });
+    catch(ex){
+      console.error(ex);
     }
-    console.log("File uploaded successfully.");
+  }
 
-    console.log(res);
-
-    const imgName = res.originalname;
-    console.log({ imgName });
-
-    return res.status(200);
+  console.log({
+    emptyPhoto,
+    photo
   });
+
+  return res.status(200).json();
 };
+
+const savePhoto = async function(userId, photoUrl){
+
+  const data = {
+    url: photoUrl,
+    sender: userId,
+    location: {
+      latitude: 140,
+      longitude: 140
+    },
+    receiver: null
+  };
+  try{
+    const photo = await new photoModel(data).save();
+    return photo;
+  }
+  catch(ex){
+    console.error(ex);
+  };
+};
+
+const findReceiver = async function(){
+  const photo = await photoModel.findOne({ receiver:null });
+
+  return photo;
+}
+
+
 
 module.exports = { uploadFile };

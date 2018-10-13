@@ -15,7 +15,7 @@ const photoModel = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     },
-    resiver: {
+    receiver: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     }
@@ -23,4 +23,4 @@ const photoModel = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", photoModel);
+module.exports = mongoose.model("Photo", photoModel);
